@@ -6,8 +6,13 @@
 }
 
 .w-set {
-  width: 1200px;
+  width: 1280px;
   margin: 0 auto;
+}
+.clear:after {
+  display:block;
+  content:'';
+  clear:both;
 }
 
 a {text-decoration: none;}
