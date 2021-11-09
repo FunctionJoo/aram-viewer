@@ -7,7 +7,7 @@
       </form>
     </div>
   </div>
-  <div class="sample">
+  <div class="sample w-set">
     <button @click="axiosTest">Axios Test</button>
     <div id="rune-box" class="clear">
       <div id="rund-hand"></div>
@@ -20,6 +20,8 @@
         <div class="rund-data-in" data-key="5"></div>
       </div>
     </div>
+    <div id="skill-box" class="clear">
+    </div>
   </div>
 </template>
 
@@ -27,7 +29,7 @@
 import * as cheerio from 'cheerio';
 
 // https://www.op.gg/aram/ajax/statistics/skillList/championId=86&modeType=450&
-// 스킬 URL 찾음 ㅋㅋㅋ
+// 스킬 URL
 
 export default {
   data() {
@@ -140,6 +142,17 @@ export default {
   float: left;
   width: 20%;
 }
+.champion-stats__filter {
+
+}
+.champion-stats__filter__item {
+  
+}
+.champion-stats__filter__item.champion-stats__filter__item--all {
+
+}
+
+
 #rund-data {
   float: right;
   width: 75%;
@@ -151,26 +164,83 @@ export default {
   display: block;
 }
 
+.tabHeader {
+  cursor:pointer;
+}
+
+.perk-page-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 .perk-page,
 .fragment__detail {
-  display: table;
+  display: inline-block;
   width: 100%;
+  vertical-align: bottom;
+}
+.fragment__detail {
+  padding-bottom: 4px;
+}
+.perk-page {
+  width: 200px;
 }
 .perk-page__row,
 .fragment__row {
-  display: table-row;
+  display: table;
+  width: 100%;
+}
+.fragment__row {
+  width: 96px;
 }
 .perk-page__item,
 .fragment {
   display: table-cell;
 }
+.perk-page__item {
+  padding: 4px 0;
+}
+.fragment {
+  padding: 16px 0 0;
+}
+.perk-page__image {
+  display: inline-block;
+  border-radius: 100%;
+  overflow: hidden;
+  font-size: 0px;
+}
+.perk-page__item--active.perk-page__item--keystone .perk-page__image {
+  background: #000;
+}
 .perk-page__item img {
-  width: 50px;
+  width: 32px;
 }
-.perk-page__item--keystone img {
-  width: 50px;
-}
+/* .perk-page__item--mark img {
+  width: 40px;
+} */
 .fragment img {
-  width: 30px;
+  width: 22px;
+}
+.page-divider {
+  width: 1px;
+  height: 200px;
+  background: #ddd;
+  margin: 0 8px;
+}
+.champion-stats__table__cell {
+  vertical-align: middle;
+  padding: 20px 0;
+}
+.champion-stats__table__cell--pickrate,
+.champion-stats__table__cell--winrate {
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: none;
+  padding: 0 20px;
+}
+.champion-stats__table__cell--pickrate em {
+  display: block;
+  color: #aaa;
+  font-style: normal;
 }
 </style>

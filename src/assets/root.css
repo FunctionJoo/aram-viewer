@@ -8,6 +8,7 @@
 .w-set {
   width: 1280px;
   margin: 0 auto;
+  outline: 1px solid #ccc;
 }
 .clear:after {
   display:block;
