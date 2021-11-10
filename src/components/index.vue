@@ -1,26 +1,28 @@
 <template>
-  <div class="index-box">
-    <div class="index-inner w-set">
-      <form class="index-form">
-        <input type="text" class="form-sch">
-        <button class="form-submit">보내기</button>
-      </form>
-    </div>
-  </div>
-  <div class="sample w-set">
-    <button @click="axiosTest">Axios Test</button>
-    <div id="rune-box" class="clear">
-      <div id="rund-hand"></div>
-      <div id="rund-data">
-        <div class="rund-data-in active" data-key="0"></div>
-        <div class="rund-data-in" data-key="1"></div>
-        <div class="rund-data-in" data-key="2"></div>
-        <div class="rund-data-in" data-key="3"></div>
-        <div class="rund-data-in" data-key="4"></div>
-        <div class="rund-data-in" data-key="5"></div>
+  <div>
+    <!-- <div class="index-box">
+      <div class="index-inner w-set">
+        <form class="index-form">
+          <input type="text" class="form-sch">
+          <button class="form-submit">보내기</button>
+        </form>
       </div>
-    </div>
-    <div id="skill-box" class="clear">
+    </div> -->
+    <button @click="axiosTest">Axios Test</button>
+    <div class="sample w-set">
+      <div id="rune-box">
+        <div id="rund-hand"></div>
+        <div id="rund-data">
+          <div class="rund-data-in active" data-key="0"></div>
+          <div class="rund-data-in" data-key="1"></div>
+          <div class="rund-data-in" data-key="2"></div>
+          <div class="rund-data-in" data-key="3"></div>
+          <div class="rund-data-in" data-key="4"></div>
+          <div class="rund-data-in" data-key="5"></div>
+        </div>
+      </div>
+      <div id="skill-box" class="clear">
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +39,8 @@ export default {
       // 칼바람 기본 모드 별 의미 없음
       modeType: 450,
       // 챔피언 키값
-      champKey: 86,
+      champKey: 37,
+      champName: 'sona',
       champRuneArr: []
     }
   },
@@ -53,11 +56,11 @@ export default {
       // };
 
       //this.axios.defaults.baseURL = 'http://www.op.gg/';
-      let that = this;
+      const that = this;
       that.axios({
         method: 'get',
         //url: '/aram/ajax/statistics/runeList/championId=79&modeType=450&primaryPerkId=8229&subPerkStyleId=8100&'
-        url: '/aram/garen/statistics/450/rune',
+        url: `/aram/${this.champName}/statistics/450/rune`,
         //url: 'https://cors-anywhere.herokuapp.com/'+'http://www.op.gg/aram/ajax/statistics/runeList/championId=79&modeType=450&primaryPerkId=8229&subPerkStyleId=8100&', optionAxios
       }).then((response) => {
         let resdata = response.data;
@@ -87,18 +90,24 @@ export default {
         }).then((response) => {
           document.querySelector('.rund-data-in').innerHTML = response.data;
         });
-
-        
       });
     },
     runePageOpen(idx, mainKey, SubKey) {
       let targetBox = document.querySelector(`.rund-data-in[data-key="${idx}"]`);
+      let targetBtn;
+      if (idx == 5) {
+        targetBtn = document.querySelector(`.champion-stats__filter__item--all`);
+      } else {
+        targetBtn = document.querySelector(`.champion-stats__filter__item[handler="${idx}"]`);
+      }
       if (targetBox.classList.contains('active')) {
         return;
       }
       let targetAll = document.querySelectorAll('.rund-data-in');
+      let targetBtnAll = document.querySelectorAll('.champion-stats__filter__item');
       for (let idx = 0; idx < targetAll.length; idx++) {
         targetAll[idx].classList.remove('active');
+        targetBtnAll[idx].classList.remove('active');
       }
 
       if (targetBox.innerHTML == '') {
@@ -117,12 +126,17 @@ export default {
         });
       }
       targetBox.classList.add('active');
+      targetBtn.classList.add('active');
     }
   }
 }
 </script>
 
 <style>
+#app {
+  background: var(--gery2);
+}
+
 .sample {
   font-size: 20px;
   font-weight: 700;
@@ -131,34 +145,60 @@ export default {
 .index-box {
   width: 100%;
   height: 100%;
-  background: #ccc;
   box-sizing: border-box;
 }
 
 #rune-box {
-  background: #fff;
+  border: 1px solid var(--grey1);
+  float: left;
+  background:var(--gery3);
 }
 #rund-hand {
   float: left;
-  width: 20%;
+  width: 170px;
+  position: relative;
+  z-index: 1;
+}
+.champion-box-header {
+  display: none;
 }
 .champion-stats__filter {
-
+  text-align: left;
 }
 .champion-stats__filter__item {
-  
+  border-left: 3px solid var(--gery3);
+  /* border-right: 1px solid var(--grey1); */
+  border-bottom: 1px solid var(--grey1);
+  padding: 10px 0 10px 20px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 120%;
+}
+.champion-stats__filter__item.active {
+  border-left-color: var(--point);
+  border-right-color: var(--white);
+  background: var(--white);
 }
 .champion-stats__filter__item.champion-stats__filter__item--all {
-
+  padding: 15px 0 15px 20px;
+  font-size: 15px;
+  line-height: 100%;
+}
+.champion-stats__filter__item__value b {
+  font-weight: 500;
+  padding-left: 5px;
 }
 
 
 #rund-data {
-  float: right;
-  width: 75%;
+  float: left;
 }
 .rund-data-in {
   display: none;
+  /* width:calc(100% + 1);
+  margin-left: -1px; */
+  border-left: 1px solid var(--grey1);
+  background: var(--white);
 }
 .rund-data-in.active {
   display: block;
@@ -168,6 +208,9 @@ export default {
   cursor:pointer;
 }
 
+.champion-stats__table th {
+  display: none;
+}
 .perk-page-wrap {
   display: flex;
   justify-content: space-between;
@@ -183,19 +226,19 @@ export default {
   padding-bottom: 4px;
 }
 .perk-page {
-  width: 200px;
+  width: 150px;
 }
 .perk-page__row,
 .fragment__row {
-  display: table;
+  display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 .fragment__row {
   width: 96px;
 }
-.perk-page__item,
-.fragment {
-  display: table-cell;
+.perk-page__row:first-of-type .perk-page__item {
+  width: 100%;
 }
 .perk-page__item {
   padding: 4px 0;
@@ -224,23 +267,55 @@ export default {
 .page-divider {
   width: 1px;
   height: 200px;
-  background: #ddd;
+  background: var(--grey1);
   margin: 0 8px;
+}
+.champion-stats__table--rune > tbody > tr {
+  display: block;
+  border-bottom: 1px solid var(--grey1);
+  padding: 10px 20px;
 }
 .champion-stats__table__cell {
   vertical-align: middle;
-  padding: 20px 0;
+  padding: 0 0 1px;
+}
+.champion-stats__table__cell--data {
+  display: block;
 }
 .champion-stats__table__cell--pickrate,
 .champion-stats__table__cell--winrate {
+  position: relative;
+  display: inline-block;
   font-size: 12px;
   font-weight: 400;
   text-decoration: none;
-  padding: 0 20px;
+  padding: 0 0 0 0;
+}
+.champion-stats__table__cell--pickrate {
+  padding: 0 30px 0 0;
+}
+.champion-stats__table__cell--pickrate:before,
+.champion-stats__table__cell--winrate:before {
+  content:'픽률';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 100%;
+  text-align: right;
+  width: 50px;
+  padding: 0 5px 0 0;
+}
+.champion-stats__table__cell--winrate:before {
+  content:'승률';
 }
 .champion-stats__table__cell--pickrate em {
-  display: block;
   color: #aaa;
   font-style: normal;
+}
+.champion-stats__table__cell--pickrate em:before {
+  content: '(';
+}
+.champion-stats__table__cell--pickrate em:after {
+  content: ')';
 }
 </style>

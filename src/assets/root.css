@@ -2,13 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
 :root {
-  --redd: #f55;
+  --white: #fff;
+  --point: #f55;
+  --grey1: #ccc;
+  --gery2: #eee;
+  --gery3: #fafafa;
 }
 
 .w-set {
   width: 1280px;
   margin: 0 auto;
-  outline: 1px solid #ccc;
 }
 .clear:after {
   display:block;

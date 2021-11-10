@@ -2,12 +2,12 @@
   <header>
     <div class="w-set clear">
       <a href="#" class="logo">ARAM VIEWER</a>
-      <div class="head-search">
+      <!-- <div class="head-search">
         <form class="hs-form">
           <input type="text" class="form-sch">
           <button class="form-submit">보내기</button>
         </form>
-      </div>
+      </div> -->
     </div>
   </header>
 </template>
