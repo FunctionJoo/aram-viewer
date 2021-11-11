@@ -3,14 +3,15 @@
 
 :root {
   --white: #fff;
-  --point: #f55;
+  --point: #333;
   --grey1: #ccc;
-  --gery2: #eee;
-  --gery3: #fafafa;
+  --grey2: #eee;
+  --grey3: #fafafa;
+  --black: #333;
 }
 
 .w-set {
-  width: 1280px;
+  width: 1140px;
   margin: 0 auto;
 }
 .clear:after {
